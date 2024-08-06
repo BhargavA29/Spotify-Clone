@@ -7,8 +7,6 @@ const connectDB = async () => {
 
     try {
         await mongoose.connect(process.env.MONGODB_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
             dbName: 'Spotify' // Specify the database name here
         });
         console.log("MongoDB connected successfully");
