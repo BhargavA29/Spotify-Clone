@@ -4,19 +4,22 @@ import { useParams } from 'react-router-dom';
 import { assets } from '../assets/assets';
 import { PlayerContext } from '../context/PlayerContext';
 
-
-const DisplayAlbum = ({ album }) => {
+const DisplayAlbum = ( ) => {
     const { id } = useParams();
     const [albumData, setAlbumData] = useState("");
-    const { playWithId, albumsData, songsData } = useContext(PlayerContext);
+    const { playWithId, albumsData, songsData, playSongFromAlbum } = useContext(PlayerContext);
     
     useEffect(() => {
-        albumsData.map((item) => {
-            if (item._id == id) {
-                setAlbumData(item);
-            }
-        });
+        const selectedAlbum = albumsData.find(item => item._id === id);
+        if (selectedAlbum) {
+            setAlbumData(selectedAlbum);
+        }
     }, [id, albumsData]);
+
+    const handlePlay = (index) => {
+        const albumSongs = songsData.filter(song => song.album === albumData.name);
+        playSongFromAlbum(albumSongs, index);
+    };
 
     return albumData ? (
         <>
@@ -46,7 +49,7 @@ const DisplayAlbum = ({ album }) => {
             {
                 songsData.filter((item) => item.album === albumData.name).map((item, index) => (
                     <div 
-                        onClick={() => playWithId(item._id)} 
+                        onClick={() => handlePlay(index)} 
                         key={index} 
                         className='grid grid-cols-3 sm:grid-cols-4 gap-2 p-2 items-center text-[#a7a7a7] hover:bg-[#ffffff2b] cursor-pointer'
                     >
@@ -61,9 +64,8 @@ const DisplayAlbum = ({ album }) => {
                     </div>
                 ))
             }
-            
         </>
     ) : null;
-}
+};
 
 export default DisplayAlbum;
