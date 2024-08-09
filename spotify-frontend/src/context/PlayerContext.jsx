@@ -12,7 +12,7 @@ const PlayerContextProvider = ({ children }) => {
     const [isAlbumContext, setIsAlbumContext] = useState(true);
     const [currentSongIndex, setCurrentSongIndex] = useState(0);
     const [track, setTrack] = useState(null);
-    const [songsData, setSongsData] = useState([]); // Ensure songsData is defined
+    const [songsData, setSongsData] = useState([]); 
     const [albumsData, setAlbumsData] = useState([]); 
     const [playStatus, setPlayStatus] = useState(false);
     const [time, setTime] = useState({
@@ -20,7 +20,7 @@ const PlayerContextProvider = ({ children }) => {
         totalTime: { second: 0, minute: 0 }
     });
 
-    const url = 'http://localhost:4000';
+    const url = 'https://spotify-clone-iota-beige.vercel.app';
 
     const play = () => {
         audioRef.current.play();
