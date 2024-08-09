@@ -1,4 +1,4 @@
-# Spotify Cline
+# Spotify Clone
 
 This is a full-stack Spotify Clone web application built with React (frontend) and Node.js/Express (backend), with MongoDB as the database. The app allows users to browse albums and songs, play music, and manage playback through a user-friendly interface.
 
