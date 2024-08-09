@@ -20,7 +20,7 @@ const PlayerContextProvider = ({ children }) => {
         totalTime: { second: 0, minute: 0 }
     });
 
-    const url = 'https://spotify-clone-iota-beige.vercel.app';
+    const url = 'http://localhost:4000';
 
     const play = () => {
         audioRef.current.play();
@@ -39,7 +39,12 @@ const PlayerContextProvider = ({ children }) => {
             setIsAlbumContext(fromAlbum);
             setTrack(songList[selectedSongIndex]);
             setCurrentSongIndex(selectedSongIndex);
-            play();
+
+            audioRef.current.src = songList[selectedSongIndex].file; // Set the audio source
+
+            audioRef.current.onloadedmetadata = () => {
+                play(); // Play only after metadata is loaded
+            };
         }
     };
 
@@ -49,7 +54,12 @@ const PlayerContextProvider = ({ children }) => {
             const newIndex = currentSongIndex + 1;
             setCurrentSongIndex(newIndex);
             setTrack(songList[newIndex]);
-            play();
+
+            audioRef.current.src = songList[newIndex].file; // Set the audio source
+
+            audioRef.current.onloadedmetadata = () => {
+                play(); // Play only after metadata is loaded
+            };
         }
     };
 
@@ -58,7 +68,12 @@ const PlayerContextProvider = ({ children }) => {
             const newIndex = currentSongIndex - 1;
             setCurrentSongIndex(newIndex);
             setTrack(isAlbumContext ? albumSongs[newIndex] : allSongs[newIndex]);
-            play();
+
+            audioRef.current.src = (isAlbumContext ? albumSongs[newIndex] : allSongs[newIndex]).file; // Set the audio source
+
+            audioRef.current.onloadedmetadata = () => {
+                play(); // Play only after metadata is loaded
+            };
         }
     };
 
@@ -121,14 +136,24 @@ const PlayerContextProvider = ({ children }) => {
             setCurrentSongIndex(index);
             setIsAlbumContext(true);
             setTrack(songs[index]);
-            play();
+
+            audioRef.current.src = songs[index].file; // Set the audio source
+
+            audioRef.current.onloadedmetadata = () => {
+                play(); // Play only after metadata is loaded
+            };
         },
         playSongFromHome: (songs, index) => {
             setAllSongs(songs);
             setCurrentSongIndex(index);
             setIsAlbumContext(false);
             setTrack(songs[index]);
-            play();
+
+            audioRef.current.src = songs[index].file; // Set the audio source
+
+            audioRef.current.onloadedmetadata = () => {
+                play(); // Play only after metadata is loaded
+            };
         },
     };
 
