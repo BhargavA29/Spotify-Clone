@@ -78,8 +78,17 @@ const PlayerContextProvider = ({ children }) => {
     };
 
     const seekSong = (e) => {
+        const wasPlaying = playStatus; // Check if the song was playing before seeking
         audioRef.current.currentTime = (e.nativeEvent.offsetX / seekBar.current.offsetWidth) * audioRef.current.duration;
+    
+        if (wasPlaying) {
+            audioRef.current.play(); // Resume playing if it was playing before seeking
+        }
+        if (playStatus) {
+            audioRef.current.play(); // Resume playing if it was playing before seeking
+        }
     };
+    
 
     const getSongsData = async () => {
         try {
