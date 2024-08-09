@@ -20,7 +20,7 @@ const PlayerContextProvider = ({ children }) => {
         totalTime: { second: 0, minute: 0 }
     });
 
-    const url = 'http://localhost:4000';
+    const url = 'https://spotify-clone-production-5583.up.railway.app';
 
     const play = () => {
         audioRef.current.play();
